@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Convidados - Aniversário 80 Anos - Adelaide Maria</title>
+    <meta name="description" content="Lista de convidados para o aniversário de 80 anos de Adelaide Maria, organizada por famílias com hierarquia e contagem total de pessoas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Hero Header -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="badge">✨ Celebração Especial ✨</div>
+            <h1>Adelaide Maria</h1>
+            <p class="subtitle">Aniversário de <span class="highlight">80 Anos</span></p>
+            <div class="divider">
+                <span class="divider-ornament">❀</span>
+            </div>
+            <p class="tagline">Lista de Convidados</p>
+        </div>
+    </header>
+
+    <!-- Stats Counter -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card" id="statFamilies">
+                <div class="stat-icon">👨‍👩‍👧‍👦</div>
+                <div class="stat-number" data-target="0">0</div>
+                <div class="stat-label">Famílias</div>
+            </div>
+            <div class="stat-card" id="statGuests">
+                <div class="stat-icon">🎉</div>
+                <div class="stat-number" data-target="0">0</div>
+                <div class="stat-label">Convidados</div>
+            </div>
+            <div class="stat-card" id="statTotal">
+                <div class="stat-icon">🥂</div>
+                <div class="stat-number" data-target="0">0</div>
+                <div class="stat-label">Total de Pessoas</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guest List -->
+    <main class="guest-section">
+        <div class="section-header">
+            <h2>Famílias Convidadas</h2>
+            <p>Clique em uma família para expandir os detalhes</p>
+        </div>
+        <div class="guest-grid" id="guestGrid">
+            <!-- Filled by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Missing Guest Form Section -->
+    <section class="add-guest-section" id="addGuestSection">
+        <div class="add-guest-container">
+            <div class="add-guest-header">
+                <div class="section-badge">✍️ Encontrou alguém faltando?</div>
+                <h2>Adicionar Convidado Esquecido</h2>
+                <p>Esqueceu de incluir alguém na lista? Preencha os dados abaixo para enviarmos para a organização atualizar na planilha!</p>
+            </div>
+
+            <form class="guest-form" id="missingGuestForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="guestName">Nome do Convidado *</label>
+                        <input type="text" id="guestName" placeholder="Ex: João da Silva" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="familyGroup">Família / Núcleo Familiar</label>
+                        <input type="text" id="familyGroup" placeholder="Ex: Família Marco Antônio / Amigo de infância">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Observação (Opcional)</label>
+                        <input type="text" id="notes" placeholder="Ex: Criança de 5 anos, cônjuge, etc.">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span>✨ Enviar Nome para a Lista</span>
+                </button>
+            </form>
+
+            <!-- Pending / Suggested List -->
+            <div class="pending-guests-container" id="pendingGuestsContainer" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                    <div>
+                        <h3>📋 Nomes Sugeridos Recentemente</h3>
+                        <p class="pending-desc" style="margin-bottom:0;">Estes nomes foram registrados para a organização incluir na planilha:</p>
+                    </div>
+                    <button type="button" id="copySuggestionsBtn" class="copy-btn">
+                        📋 Copiar Lista para a Planilha
+                    </button>
+                </div>
+                <div class="pending-list" id="pendingList"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Honoree Card -->
+    <section class="honoree-section">
+        <div class="honoree-card">
+            <div class="honoree-icon">👑</div>
+            <h2>Aniversariante</h2>
+            <p class="honoree-name">Adelaide Maria</p>
+            <p class="honoree-age">80 Anos</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Com muito carinho e amor 💛</p>
+        <p class="footer-small">Aniversário de 80 anos — Adelaide Maria</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
