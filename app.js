@@ -129,7 +129,7 @@ const guestData = [
     {
         head: "Tio Tião",
         spouse: "Laudelina",
-        count: 2,
+        count: 4,
         members: [
             {
                 name: "Motorista",
@@ -140,7 +140,7 @@ const guestData = [
     {
         head: "Tio César",
         spouse: "Pessoa 1",
-        count: 2,
+        count: 3,
         members: [
             {
                 name: "Pessoa 2",
@@ -156,6 +156,45 @@ const guestData = [
         extraPeople: ["Ana Cláudia Silva", "Judiceia Portela"]
     }
 ];
+
+// ===== CONFIRMED GUESTS =====
+const confirmedPeople = new Set([
+    "Tio Laurindo",
+    "Regina",
+    "Elizabeth",
+    "Luiza",
+    "Camila",
+    "Pedro Henrique",
+    "Carlos Romeu",
+    "Edyr José",
+    "Tio César",
+    "Pessoa 1",
+    "Pessoa 2",
+    "Rogério",
+    "Laís",
+    "Rony",
+    "Davi",
+    "Levi",
+    "Rogério Júnior",
+    "Ednéia Maria",
+    "Guilherme",
+    "Ana",
+    "Flavio dos Santos",
+    "Thais",
+    "Matheus",
+    "Ivone Maria de Almeida",
+    "Ana Cláudia Silva",
+    "Judiceia Portela",
+    "Beatriz",
+    "Miguel",
+    "Fabiana Aparecida",
+    "Bruno",
+    "Renato Domingues"
+]);
+
+function getStatusClass(name) {
+    return confirmedPeople.has(name) ? "confirmed" : "invited";
+}
 
 // ===== UTILITY FUNCTIONS =====
 
@@ -193,7 +232,7 @@ function createMemberTree(family) {
         html += `
             <li class="member-item">
                 <span class="member-name-badge">
-                    <span class="member-dot level-1"></span>
+                    <span class="member-dot ${getStatusClass(family.spouse)}"></span>
                     ${family.spouse}
                 </span>
             </li>`;
@@ -205,7 +244,7 @@ function createMemberTree(family) {
             html += `
                 <li class="member-item">
                     <span class="member-name-badge">
-                        <span class="member-dot level-1"></span>
+                        <span class="member-dot ${getStatusClass(person)}"></span>
                         ${person}
                     </span>
                 </li>`;
@@ -217,7 +256,7 @@ function createMemberTree(family) {
         html += `
             <li class="member-item">
                 <span class="member-name-badge">
-                    <span class="member-dot level-2"></span>
+                    <span class="member-dot ${getStatusClass(member.name)}"></span>
                     ${member.name}
                 </span>`;
 
@@ -227,7 +266,7 @@ function createMemberTree(family) {
                 html += `
                     <li class="member-item">
                         <span class="member-name-badge">
-                            <span class="member-dot level-3"></span>
+                            <span class="member-dot ${getStatusClass(child)}"></span>
                             ${child}
                         </span>
                     </li>`;
@@ -261,7 +300,7 @@ function createFamilyCard(family, index) {
     card.innerHTML = `
         <div class="card-header">
             <div class="card-header-left">
-                <div class="family-avatar">${initials}</div>
+                <div class="family-avatar">${initials}<span class="head-status-dot ${getStatusClass(family.head)}"></span></div>
                 <div class="card-header-info">
                     <h3>${family.head}</h3>
                     ${spouseHtml}
@@ -286,31 +325,42 @@ function createFamilyCard(family, index) {
     return card;
 }
 
+function countConfirmedInFamily(family) {
+    let count = 0;
+    if (confirmedPeople.has(family.head)) count++;
+    if (family.spouse && confirmedPeople.has(family.spouse)) count++;
+    if (family.extraPeople) {
+        family.extraPeople.forEach(p => { if (confirmedPeople.has(p)) count++; });
+    }
+    family.members.forEach(m => {
+        if (confirmedPeople.has(m.name)) count++;
+        m.children.forEach(c => { if (confirmedPeople.has(c)) count++; });
+    });
+    return count;
+}
+
 function renderGuestList() {
     const grid = document.getElementById('guestGrid');
-    let familyCount = 0;
     let guestCount = 0;
+    let confirmedCount = 0;
 
     guestData.forEach((family, index) => {
         if (family.isHonoree) {
             guestCount += family.count;
+            if (confirmedPeople.has(family.head)) confirmedCount++;
             return;
         }
 
-        familyCount++;
         guestCount += countAllMembers(family);
+        confirmedCount += countConfirmedInFamily(family);
 
         const card = createFamilyCard(family, index);
         if (card) grid.appendChild(card);
     });
 
-    // Update stats
-    const totalPeople = guestCount;
-    guestCount -= 1; // Subtract honoree from guest count (she's the host)
-
-    animateCounter('statFamilies', familyCount);
-    animateCounter('statGuests', guestCount);
-    animateCounter('statTotal', totalPeople);
+    // Update stats: Confirmados = green, Convidados = total
+    animateCounter('statGuests', confirmedCount);
+    animateCounter('statTotal', guestCount);
 }
 
 // ===== ANIMATED COUNTER =====
@@ -471,11 +521,116 @@ function initMissingGuestForm() {
     }
 }
 
+// ===== PEOPLE LIST MODAL =====
+
+function getAllPeople() {
+    const people = [];
+    guestData.forEach(family => {
+        const familyLabel = family.isHonoree ? "Aniversariante" : family.head;
+
+        // Head
+        people.push({
+            name: family.head,
+            confirmed: confirmedPeople.has(family.head),
+            family: family.isHonoree ? "" : "Responsável"
+        });
+
+        // Spouse
+        if (family.spouse) {
+            people.push({
+                name: family.spouse,
+                confirmed: confirmedPeople.has(family.spouse),
+                family: familyLabel
+            });
+        }
+
+        // Extra people
+        if (family.extraPeople) {
+            family.extraPeople.forEach(person => {
+                people.push({
+                    name: person,
+                    confirmed: confirmedPeople.has(person),
+                    family: familyLabel
+                });
+            });
+        }
+
+        // Members and their children
+        family.members.forEach(member => {
+            people.push({
+                name: member.name,
+                confirmed: confirmedPeople.has(member.name),
+                family: familyLabel
+            });
+            member.children.forEach(child => {
+                people.push({
+                    name: child,
+                    confirmed: confirmedPeople.has(child),
+                    family: familyLabel
+                });
+            });
+        });
+    });
+    return people;
+}
+
+function openModal(type) {
+    const overlay = document.getElementById('modalOverlay');
+    const title = document.getElementById('modalTitle');
+    const countEl = document.getElementById('modalCount');
+    const list = document.getElementById('modalList');
+
+    const allPeople = getAllPeople();
+    let filtered;
+
+    if (type === 'confirmed') {
+        filtered = allPeople.filter(p => p.confirmed);
+        title.textContent = '🎉 Confirmados';
+    } else {
+        filtered = allPeople;
+        title.textContent = '🥂 Todos os Convidados';
+    }
+
+    countEl.textContent = `${filtered.length} pessoa${filtered.length !== 1 ? 's' : ''}`;
+
+    list.innerHTML = '';
+    filtered.forEach(person => {
+        const li = document.createElement('li');
+        const dotColor = person.confirmed ? 'green' : 'yellow';
+        li.innerHTML = `
+            <span class="modal-dot ${dotColor}"></span>
+            <span>${person.name}</span>
+            ${person.family ? `<span class="family-label">${person.family}</span>` : ''}
+        `;
+        list.appendChild(li);
+    });
+
+    overlay.classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function initModal() {
+    const statGuests = document.getElementById('statGuests');
+    const statTotal = document.getElementById('statTotal');
+    const closeBtn = document.getElementById('modalClose');
+    const overlay = document.getElementById('modalOverlay');
+
+    statGuests.addEventListener('click', () => openModal('confirmed'));
+    statTotal.addEventListener('click', () => openModal('all'));
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+    });
+}
+
 // ===== INITIALIZATION =====
 
 document.addEventListener('DOMContentLoaded', () => {
     createParticles();
     renderGuestList();
     initMissingGuestForm();
+    initModal();
 });
-

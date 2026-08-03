@@ -515,19 +515,39 @@ body {
     flex-shrink: 0;
 }
 
-.member-dot.level-1 {
+.member-dot.confirmed {
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+}
+
+.member-dot.invited {
     background: var(--gold-400);
     box-shadow: 0 0 6px rgba(212, 160, 48, 0.5);
 }
 
-.member-dot.level-2 {
-    background: var(--rose-400);
-    box-shadow: 0 0 6px rgba(244, 114, 182, 0.4);
+/* Head status indicator on avatar */
+.family-avatar {
+    position: relative;
 }
 
-.member-dot.level-3 {
-    background: var(--purple-300);
-    box-shadow: 0 0 6px rgba(157, 151, 204, 0.4);
+.head-status-dot {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--purple-900);
+}
+
+.head-status-dot.confirmed {
+    background: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+}
+
+.head-status-dot.invited {
+    background: var(--gold-400);
+    box-shadow: 0 0 6px rgba(212, 160, 48, 0.5);
 }
 
 /* Sub-members (level 3) */
@@ -828,6 +848,159 @@ body {
     font-size: 0.8rem !important;
     color: var(--white-20) !important;
     letter-spacing: 1px;
+}
+
+/* ===== STAT CARD CLICKABLE ===== */
+.stat-card {
+    cursor: pointer;
+}
+
+/* ===== PEOPLE LIST MODAL ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 11, 30, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    padding: var(--space-xl);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(30, 26, 66, 0.95) 0%, rgba(21, 18, 48, 0.98) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 160, 48, 0.08);
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.35s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.modal-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.modal-close {
+    background: var(--white-10);
+    border: 1px solid var(--glass-border);
+    color: var(--white-70);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: rgba(244, 114, 182, 0.2);
+    border-color: var(--rose-400);
+    color: var(--white);
+}
+
+.modal-count {
+    font-size: 0.9rem;
+    color: var(--white-50);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.modal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-list::-webkit-scrollbar-thumb {
+    background: var(--white-20);
+    border-radius: 3px;
+}
+
+.modal-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 8px var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+    color: var(--white-70);
+    transition: background 0.2s ease;
+}
+
+.modal-list li:hover {
+    background: var(--white-05);
+}
+
+.modal-list li .modal-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.modal-list li .modal-dot.green {
+    background: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+}
+
+.modal-list li .modal-dot.yellow {
+    background: var(--gold-400);
+    box-shadow: 0 0 6px rgba(212, 160, 48, 0.5);
+}
+
+.modal-list li .family-label {
+    font-size: 0.75rem;
+    color: var(--white-20);
+    margin-left: auto;
+    white-space: nowrap;
 }
 
 /* ===== RESPONSIVE ===== */

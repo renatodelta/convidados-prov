@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Convidados - Aniversário 80 Anos - Adelaide Maria</title>
-    <meta name="description" content="Lista de convidados para o aniversário de 80 anos de Adelaide Maria, organizada por famílias com hierarquia e contagem total de pessoas.">
+    <meta name="description"
+        content="Lista de convidados para o aniversário de 80 anos de Adelaide Maria, organizada por famílias com hierarquia e contagem total de pessoas.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Floating particles background -->
     <div class="particles" id="particles"></div>
@@ -30,20 +35,16 @@
     <!-- Stats Counter -->
     <section class="stats-section">
         <div class="stats-container">
-            <div class="stat-card" id="statFamilies">
-                <div class="stat-icon">👨‍👩‍👧‍👦</div>
-                <div class="stat-number" data-target="0">0</div>
-                <div class="stat-label">Famílias</div>
-            </div>
+
             <div class="stat-card" id="statGuests">
                 <div class="stat-icon">🎉</div>
                 <div class="stat-number" data-target="0">0</div>
-                <div class="stat-label">Convidados</div>
+                <div class="stat-label">Confirmados</div>
             </div>
             <div class="stat-card" id="statTotal">
                 <div class="stat-icon">🥂</div>
                 <div class="stat-number" data-target="0">0</div>
-                <div class="stat-label">Total de Pessoas</div>
+                <div class="stat-label">Convidados</div>
             </div>
         </div>
     </section>
@@ -64,8 +65,8 @@
         <div class="add-guest-container">
             <div class="add-guest-header">
                 <div class="section-badge">✍️ Encontrou alguém faltando?</div>
-                <h2>Adicionar Convidado Esquecido</h2>
-                <p>Esqueceu de incluir alguém na lista? Preencha os dados abaixo para enviarmos para a organização atualizar na planilha!</p>
+                <h2>Adicionar Convidado</h2>
+                <p>Preencha os dados abaixo para enviarmos para a organização atualizar na planilha!</p>
             </div>
 
             <form class="guest-form" id="missingGuestForm">
@@ -75,10 +76,6 @@
                         <input type="text" id="guestName" placeholder="Ex: João da Silva" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="familyGroup">Família / Núcleo Familiar</label>
-                        <input type="text" id="familyGroup" placeholder="Ex: Família Marco Antônio / Amigo de infância">
-                    </div>
 
                     <div class="form-group">
                         <label for="notes">Observação (Opcional)</label>
@@ -93,10 +90,12 @@
 
             <!-- Pending / Suggested List -->
             <div class="pending-guests-container" id="pendingGuestsContainer" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
                     <div>
                         <h3>📋 Nomes Sugeridos Recentemente</h3>
-                        <p class="pending-desc" style="margin-bottom:0;">Estes nomes foram registrados para a organização incluir na planilha:</p>
+                        <p class="pending-desc" style="margin-bottom:0;">Estes nomes foram registrados para a
+                            organização incluir na planilha:</p>
                     </div>
                     <button type="button" id="copySuggestionsBtn" class="copy-btn">
                         📋 Copiar Lista para a Planilha
@@ -123,6 +122,19 @@
         <p class="footer-small">Aniversário de 80 anos — Adelaide Maria</p>
     </footer>
 
+    <!-- People List Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Lista</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-count" id="modalCount"></div>
+            <ul class="modal-list" id="modalList"></ul>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
+
 </html>
