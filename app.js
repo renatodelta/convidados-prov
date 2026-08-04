@@ -192,6 +192,10 @@ const confirmedPeople = new Set([
     "Renato Domingues"
 ]);
 
+// ===== GOOGLE SHEETS INTEGRATION =====
+// Cole aqui a URL do seu Google Apps Script (veja o guia setup_google_script.md)
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQt6VitFUA9oKKJ6yPTN84UHyOWXlTU34sHqyvPF-NLhjAO3LjGhAmKq4Wqu9O-o8QbA/exec";
+
 function getStatusClass(name) {
     return confirmedPeople.has(name) ? "confirmed" : "invited";
 }
@@ -475,29 +479,54 @@ function initMissingGuestForm() {
 
     renderPendingSuggestions();
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const guestName = document.getElementById('guestName').value.trim();
-        const familyGroup = document.getElementById('familyGroup').value.trim();
-        const notes = document.getElementById('notes').value.trim();
+        const notesField = document.getElementById('notes');
+        const notes = notesField ? notesField.value.trim() : '';
 
         if (!guestName) return;
+
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.innerHTML;
 
         const newEntry = {
             id: Date.now(),
             guestName,
-            familyGroup,
             notes,
             date: new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })
         };
+
+        // Send to Google Sheets if URL is configured
+        if (GOOGLE_SCRIPT_URL) {
+            try {
+                submitBtn.innerHTML = '<span>⏳ Enviando...</span>';
+                submitBtn.disabled = true;
+
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ guestName, notes })
+                });
+
+                newEntry.sentToSheet = true;
+            } catch (err) {
+                console.error('Erro ao enviar para planilha:', err);
+                newEntry.sentToSheet = false;
+            } finally {
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        }
 
         saveSuggestion(newEntry);
         renderPendingSuggestions();
 
         form.reset();
 
-        alert(`✨ O nome "${guestName}" foi registrado com sucesso para inclusão na planilha!`);
+        alert(`✨ O nome "${guestName}" foi ${GOOGLE_SCRIPT_URL ? 'enviado para a planilha' : 'registrado localmente'} com sucesso!`);
     });
 
     const copyBtn = document.getElementById('copySuggestionsBtn');
