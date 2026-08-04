@@ -154,6 +154,12 @@ const guestData = [
         count: 3,
         members: [],
         extraPeople: ["Ana Cláudia Silva", "Judiceia Portela"]
+    },
+    {
+        head: "Maria Lindanora",
+        spouse: "Cláudio José",
+        count: 2,
+        members: []
     }
 ];
 
