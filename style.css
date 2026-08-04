@@ -1004,10 +1004,33 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
+
+/* --- Tablet & Small Laptop (max-width: 768px) --- */
 @media (max-width: 768px) {
+    /* Hero */
     .hero {
-        min-height: 50vh;
+        min-height: 45vh;
         padding: var(--space-2xl) var(--space-md);
+    }
+
+    .hero h1 {
+        font-size: clamp(2.2rem, 8vw, 3.5rem);
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-md);
+        letter-spacing: 1.5px;
+    }
+
+    .tagline {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+    }
+
+    /* Stats */
+    .stats-section {
+        padding: var(--space-lg) var(--space-md) var(--space-2xl);
     }
 
     .stats-container {
@@ -1023,6 +1046,16 @@ body {
         font-size: 2.2rem;
     }
 
+    .stat-icon {
+        font-size: 2rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+    }
+
+    /* Guest Grid */
     .guest-grid {
         grid-template-columns: 1fr;
         gap: var(--space-md);
@@ -1032,32 +1065,468 @@ body {
         padding: var(--space-xl) var(--space-md);
     }
 
+    .section-header {
+        margin-bottom: var(--space-2xl);
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    /* Family Cards */
     .card-header {
         padding: var(--space-md);
-        flex-wrap: wrap;
         gap: var(--space-sm);
+    }
+
+    .family-avatar {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
+
+    .head-status-dot {
+        width: 12px;
+        height: 12px;
+    }
+
+    .card-header-info h3 {
+        font-size: 1.05rem;
+    }
+
+    .card-count {
+        font-size: 0.8rem;
+        padding: 3px var(--space-sm);
     }
 
     .family-card.expanded .card-body {
         padding: var(--space-md);
     }
 
+    /* Form */
+    .add-guest-section {
+        padding: var(--space-2xl) var(--space-md);
+    }
+
+    .add-guest-container {
+        padding: var(--space-xl);
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .form-group input {
+        padding: 0.9rem 1rem;
+        font-size: 1rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    /* Pending List */
+    .pending-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .copy-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.6rem 1rem;
+    }
+
+    /* Honoree */
     .honoree-card {
-        padding: var(--space-2xl);
+        padding: var(--space-2xl) var(--space-xl);
+    }
+
+    .honoree-name {
+        font-size: 1.8rem !important;
+    }
+
+    .honoree-icon {
+        font-size: 2.8rem;
+    }
+
+    /* Modal */
+    .modal-overlay {
+        padding: var(--space-md);
+        align-items: flex-end;
+    }
+
+    .modal-content {
+        max-height: 85vh;
+        padding: var(--space-xl);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .modal-list li {
+        padding: 10px var(--space-sm);
+        font-size: 0.88rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: var(--space-2xl) var(--space-md);
     }
 }
 
+/* --- Mobile (max-width: 480px) --- */
 @media (max-width: 480px) {
-    .stat-card {
-        min-width: 100%;
+    /* Hero */
+    .hero {
+        min-height: 40vh;
+        padding: var(--space-xl) var(--space-sm);
+    }
+
+    .hero h1 {
+        font-size: clamp(1.8rem, 10vw, 2.8rem);
+    }
+
+    .subtitle {
+        font-size: clamp(1rem, 3.5vw, 1.3rem);
+    }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 4px var(--space-sm);
+        letter-spacing: 1px;
+    }
+
+    .tagline {
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+    }
+
+    .divider {
+        margin: var(--space-md) auto;
+        max-width: 200px;
+    }
+
+    /* Stats */
+    .stats-section {
+        padding: var(--space-md) var(--space-sm) var(--space-xl);
     }
 
     .stats-container {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        gap: var(--space-sm);
     }
 
     .stat-card {
+        min-width: 0;
+        flex: 1;
         max-width: 100%;
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stat-icon {
+        font-size: 1.6rem;
+        margin-bottom: var(--space-sm);
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+
+    /* Guest Section */
+    .guest-section {
+        padding: var(--space-lg) var(--space-sm);
+    }
+
+    .section-header {
+        margin-bottom: var(--space-xl);
+    }
+
+    .section-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .section-header p {
+        font-size: 0.85rem;
+    }
+
+    /* Family Cards */
+    .family-card {
+        border-radius: var(--radius-md);
+    }
+
+    .card-header {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .card-header-left {
+        gap: var(--space-sm);
+    }
+
+    .family-avatar {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+
+    .head-status-dot {
+        width: 11px;
+        height: 11px;
+    }
+
+    .card-header-info h3 {
+        font-size: 0.95rem;
+    }
+
+    .card-header-info .spouse-name {
+        font-size: 0.78rem;
+    }
+
+    .expand-icon {
+        font-size: 1rem;
+    }
+
+    .member-tree .member-item {
+        font-size: 0.85rem;
+        padding: 4px 0 4px var(--space-lg);
+    }
+
+    .sub-members {
+        margin-left: var(--space-md);
+    }
+
+    .family-card.expanded .card-body {
+        padding: var(--space-sm) var(--space-md) var(--space-md);
+    }
+
+    /* Form */
+    .add-guest-section {
+        padding: var(--space-xl) var(--space-sm);
+    }
+
+    .add-guest-container {
+        padding: var(--space-lg) var(--space-md);
+        border-radius: var(--radius-lg);
+    }
+
+    .add-guest-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .add-guest-header p {
+        font-size: 0.85rem;
+    }
+
+    .section-badge {
+        font-size: 0.75rem;
+    }
+
+    .form-group label {
+        font-size: 0.78rem;
+    }
+
+    .form-group input {
+        padding: 0.75rem 0.85rem;
+        font-size: 0.95rem;
+        border-radius: var(--radius-sm);
+    }
+
+    .submit-btn {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+        border-radius: var(--radius-md);
+    }
+
+    /* Pending */
+    .pending-guests-container h3 {
+        font-size: 1rem;
+    }
+
+    .pending-card {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .pending-info h4 {
+        font-size: 0.9rem;
+    }
+
+    .pending-info p {
+        font-size: 0.75rem;
+    }
+
+    .pending-status {
+        font-size: 0.7rem;
+    }
+
+    /* Honoree */
+    .honoree-section {
+        padding: var(--space-2xl) var(--space-sm);
+    }
+
+    .honoree-card {
+        padding: var(--space-xl) var(--space-lg);
+        border-radius: var(--radius-lg);
+    }
+
+    .honoree-icon {
+        font-size: 2.4rem;
+        margin-bottom: var(--space-md);
+    }
+
+    .honoree-card h2 {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+
+    .honoree-name {
+        font-size: 1.6rem !important;
+    }
+
+    .honoree-age {
+        font-size: 1.1rem;
+    }
+
+    /* Modal — full sheet from bottom */
+    .modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .modal-content {
+        max-height: 90vh;
+        max-width: 100%;
+        padding: var(--space-lg) var(--space-md);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .modal-close {
+        width: 32px;
+        height: 32px;
+        font-size: 1.2rem;
+    }
+
+    .modal-count {
+        font-size: 0.82rem;
+    }
+
+    .modal-list li {
+        padding: 9px var(--space-xs);
+        font-size: 0.85rem;
+    }
+
+    .modal-list li .family-label {
+        font-size: 0.65rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: var(--space-xl) var(--space-sm);
+    }
+
+    .footer p {
+        font-size: 0.9rem;
+    }
+
+    .footer-small {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* --- Very Small Phones (max-width: 360px) --- */
+@media (max-width: 360px) {
+    .hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.6rem;
+    }
+
+    .stat-icon {
+        font-size: 1.3rem;
+    }
+
+    .card-header-info h3 {
+        font-size: 0.88rem;
+    }
+
+    .family-avatar {
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
+    }
+
+    .add-guest-container {
+        padding: var(--space-md);
+    }
+
+    .honoree-name {
+        font-size: 1.4rem !important;
+    }
+}
+
+/* --- Touch / Hover adaptation --- */
+@media (hover: none) {
+    .family-card:hover {
+        transform: none;
+        border-color: var(--glass-border);
+        box-shadow: var(--glass-shadow);
+    }
+
+    .family-card:active {
+        transform: scale(0.98);
+        border-color: var(--gold-500);
+    }
+
+    .stat-card:hover {
+        transform: none;
+    }
+
+    .stat-card:active {
+        transform: scale(0.96);
+    }
+
+    .submit-btn:hover {
+        transform: none;
+        box-shadow: 0 6px 20px rgba(212, 160, 48, 0.3);
+        filter: none;
+    }
+
+    .submit-btn:active {
+        transform: scale(0.97);
+    }
+}
+
+/* --- Safe area for notched phones --- */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .footer {
+        padding-bottom: calc(var(--space-2xl) + env(safe-area-inset-bottom));
+    }
+
+    .modal-content {
+        padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom));
     }
 }
