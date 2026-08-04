@@ -446,6 +446,13 @@ function saveSuggestion(item) {
     return current;
 }
 
+function deleteSuggestion(id) {
+    const current = loadSuggestions();
+    const updated = current.filter(item => item.id !== id);
+    localStorage.setItem('adelaide_80_suggestions', JSON.stringify(updated));
+    renderPendingSuggestions();
+}
+
 function renderPendingSuggestions() {
     const suggestions = loadSuggestions();
     const container = document.getElementById('pendingGuestsContainer');
@@ -467,8 +474,16 @@ function renderPendingSuggestions() {
                 <h4>${item.guestName} ${item.familyGroup ? `<span style="color: var(--gold-400); font-weight: normal;">(${item.familyGroup})</span>` : ''}</h4>
                 <p>${item.notes ? `Obs: ${item.notes} • ` : ''}<small>${item.date}</small></p>
             </div>
-            <div class="pending-status">⏳ Em Análise</div>
+            <div class="pending-actions">
+                <div class="pending-status">⏳ Em Análise</div>
+                <button class="delete-suggestion-btn" title="Excluir">🗑️</button>
+            </div>
         `;
+        card.querySelector('.delete-suggestion-btn').addEventListener('click', () => {
+            if (confirm(`Excluir "${item.guestName}" da lista de sugeridos?`)) {
+                deleteSuggestion(item.id);
+            }
+        });
         list.appendChild(card);
     });
 }
