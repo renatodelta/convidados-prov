@@ -214,7 +214,8 @@ const declinedPeople = new Set([
     "Jonathan",
     "Jennifer",
     "Marido",
-    "Yuri"
+    "Yuri",
+    "Vinícius"
 ]);
 
 // ===== GOOGLE SHEETS INTEGRATION =====
