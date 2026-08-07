@@ -198,7 +198,23 @@ const confirmedPeople = new Set([
     "Miguel",
     "Fabiana Aparecida",
     "Bruno",
-    "Renato Domingues"
+    "Renato Domingues",
+    "Marco Antônio",
+    "Rafael"
+]);
+
+// ===== DECLINED GUESTS (bolinha vermelha) =====
+const declinedPeople = new Set([
+    "Gisele",
+    "Wanderson",
+    "Gustavo",
+    "Victor",
+    "Jhonny",
+    "Jhoe Romeu",
+    "Jonathan",
+    "Jennifer",
+    "Marido",
+    "Yuri"
 ]);
 
 // ===== GOOGLE SHEETS INTEGRATION =====
@@ -206,6 +222,7 @@ const confirmedPeople = new Set([
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQt6VitFUA9oKKJ6yPTN84UHyOWXlTU34sHqyvPF-NLhjAO3LjGhAmKq4Wqu9O-o8QbA/exec";
 
 function getStatusClass(name) {
+    if (declinedPeople.has(name)) return "declined";
     return confirmedPeople.has(name) ? "confirmed" : "invited";
 }
 
@@ -585,6 +602,7 @@ function getAllPeople() {
         people.push({
             name: family.head,
             confirmed: confirmedPeople.has(family.head),
+            declined: declinedPeople.has(family.head),
             family: family.isHonoree ? "" : "Responsável"
         });
 
@@ -593,6 +611,7 @@ function getAllPeople() {
             people.push({
                 name: family.spouse,
                 confirmed: confirmedPeople.has(family.spouse),
+                declined: declinedPeople.has(family.spouse),
                 family: familyLabel
             });
         }
@@ -603,6 +622,7 @@ function getAllPeople() {
                 people.push({
                     name: person,
                     confirmed: confirmedPeople.has(person),
+                    declined: declinedPeople.has(person),
                     family: familyLabel
                 });
             });
@@ -613,12 +633,14 @@ function getAllPeople() {
             people.push({
                 name: member.name,
                 confirmed: confirmedPeople.has(member.name),
+                declined: declinedPeople.has(member.name),
                 family: familyLabel
             });
             member.children.forEach(child => {
                 people.push({
                     name: child,
                     confirmed: confirmedPeople.has(child),
+                    declined: declinedPeople.has(child),
                     family: familyLabel
                 });
             });
@@ -649,7 +671,7 @@ function openModal(type) {
     list.innerHTML = '';
     filtered.forEach(person => {
         const li = document.createElement('li');
-        const dotColor = person.confirmed ? 'green' : 'yellow';
+        const dotColor = person.declined ? 'red' : (person.confirmed ? 'green' : 'yellow');
         li.innerHTML = `
             <span class="modal-dot ${dotColor}"></span>
             <span>${person.name}</span>
